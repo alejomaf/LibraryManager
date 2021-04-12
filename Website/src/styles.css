@@ -1,2 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~bootstrap/dist/css/bootstrap.css"
+
+.medium_box {
+    width : 70vh;
+    border-radius: 20%;
+    background-color:aliceblue;
+    border-color: cadetblue;
+    border-style: solid;
+    border-width: 20px;
+    padding: 3vh;
+}
+
+.centered {
+    margin: auto;
+    vertical-align: middle;
+}
