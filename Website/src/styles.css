@@ -1,5 +1,8 @@
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 /* You can add global styles to this file, and also import other style files */
-
+body {
+    background-color: black;
+}
 .medium_box {
     width : 70vh;
     border-radius: 20%;
@@ -13,4 +16,20 @@
 .centered {
     margin: auto;
     vertical-align: middle;
+}
+
+.boton-anadir {
+    border-radius: 100%;
+    position:absolute;
+    bottom: 50px;
+    right: 50px;
+    width: 150px;
+    height: 150px;
+    padding: 3vh;
+}
+
+.boton-anadir-texto {
+    font-size: 100px;
+    left: 50%;
+    top:30%;
 }
