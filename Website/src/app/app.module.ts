@@ -6,14 +6,14 @@ import { LoginComponent } from './login/login.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegisterComponent } from './register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { LibraryButtonComponent } from './library-button/library-button.component';
-import { BookButtonComponent } from './book-button/book-button.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { LibraryComponent } from './library/library.component';
 import { BookComponent } from './book/book.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { BookCalendarComponent } from './book-calendar/book-calendar.component';
+import { LibraryCreateComponent } from './library-create/library-create.component';
+import { BookCreateComponent } from './book-create/book-create.component';
 
 @NgModule({
   declarations: [
@@ -21,11 +21,11 @@ import { BookCalendarComponent } from './book-calendar/book-calendar.component';
     LoginComponent,
     RegisterComponent,
     NavbarComponent,
-    LibraryButtonComponent,
-    BookButtonComponent,
     LibraryComponent,
     BookComponent,
-    BookCalendarComponent
+    BookCalendarComponent,
+    LibraryCreateComponent,
+    BookCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +37,7 @@ import { BookCalendarComponent } from './book-calendar/book-calendar.component';
     })
   ],
   providers: [],
-  bootstrap: [AppComponent,LoginComponent]
+  bootstrap: [AppComponent,LoginComponent],
+  exports: [BookCalendarComponent]
 })
 export class AppModule { }

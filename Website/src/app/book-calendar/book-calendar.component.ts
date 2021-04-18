@@ -1,6 +1,5 @@
-import { OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
-  Component,
   ChangeDetectionStrategy,
   ViewChild,
   TemplateRef,
@@ -24,11 +23,6 @@ import {
   CalendarView,
 } from 'angular-calendar';
 
-@Component({
-  selector: 'app-book-calendar',
-  templateUrl: './calendar.component.html',
-  styleUrls: ['./calendar.component.css']
-})
 const colors: any = {
   red: {
     primary: '#ad2121',
@@ -44,11 +38,16 @@ const colors: any = {
   },
 };
 
-export class BookCalendarComponent implements OnInit {
 
+@Component({
+  selector: 'app-book-calendar',
+  templateUrl: './book-calendar.component.html',
+  styleUrls: ['./book-calendar.component.css']
+})
+export class BookCalendarComponent implements OnInit {
   ngOnInit(): void {
   }
-
+  
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
   view: CalendarView = CalendarView.Month;
@@ -62,6 +61,7 @@ export class BookCalendarComponent implements OnInit {
     event: CalendarEvent;
   };
 
+  //Actions that the user can do with the event
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
@@ -84,9 +84,8 @@ export class BookCalendarComponent implements OnInit {
 
   events: CalendarEvent[] = [
     {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
+      start: startOfDay(new Date("2021-04-16")),
+      title: 'Un evento interesante',
       color: colors.red,
       actions: this.actions,
       allDay: true,
@@ -108,6 +107,7 @@ export class BookCalendarComponent implements OnInit {
       title: 'A long event that spans 2 months',
       color: colors.blue,
       allDay: true,
+      draggable: true
     },
     {
       start: addHours(startOfDay(new Date()), 2),
