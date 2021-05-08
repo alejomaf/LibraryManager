@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const reminders = require('../services/reminders');
+const middleware = require('./middleware');
+router.use(middleware.checkToken);
+
 
 /* GET reminders. */
 router.get('/', async function(req, res, next) {

@@ -9,13 +9,40 @@ async function getMultiple(page = 1){
     FROM User LIMIT ?,?`, 
     [offset, config.listPerPage]
   );
-  const data = helper.emptyOrRows(rows);
+  const data = helper.emptyOrRows(rows[0]);
   const meta = {page};
 
   return {
     data,
     meta
   }
+}
+/*
+const getByEmail = (email) =>{
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT *
+    FROM User WHERE email = ?`,[email], (err, rows) => {
+      if(err) reject(err)
+      resolve(rows[0])
+    });
+  });
+};
+*/
+
+async function getByEmail(email){
+  const user = await db.query(
+    `SELECT idUser, name, email, password 
+    FROM User WHERE email = ?`,[email]
+  );
+  return user[0];
+}
+
+async function getById(idUser){
+  const user = await db.query(
+    `SELECT idUser, name, email, password 
+    FROM User WHERE idUser = ?`,[idUser]
+  );
+  return user[0];
 }
 
 async function create(user){
@@ -79,5 +106,7 @@ module.exports = {
   getMultiple,
   create,
   update,
-  remove
+  remove,
+  getByEmail,
+  getById
 }

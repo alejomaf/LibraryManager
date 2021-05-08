@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const books = require('../services/books');
+const middleware = require('./middleware');
+router.use(middleware.checkToken);
+
 
 /* GET books. */
 router.get('/', async function(req, res, next) {

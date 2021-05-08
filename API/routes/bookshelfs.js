@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const bookshelfs = require('../services/bookshelfs');
+const middleware = require('./middleware');
+router.use(middleware.checkToken);
+
 
 /* GET bookshelfs. */
 router.get('/', async function(req, res, next) {
   try {
-    res.json(await bookshelfs.getMultiple(req.query.page));
+    req.User_idUser = req.userId;
+    res.json(await bookshelfs.getMultiple(req, req.query.page));
   } catch (err) {
     console.error(`Error while getting bookshelfs `, err.message);
     next(err);
