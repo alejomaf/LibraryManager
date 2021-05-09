@@ -39,7 +39,7 @@ export class LibraryCreateComponent implements OnInit {
       this.alertMessage = "Write the column number";
       return;
     }
-    let auxBookshelf: Library = {columnB:this.columnNumber.value, name: this.libraryName.value, rowB: this.rowNumber.value, User_idUser:1, idBookshelf:null};
+    let auxBookshelf: Library = {columnB:this.columnNumber.value, name: this.libraryName.value, rowB: this.rowNumber.value, User_idUser:null, idBookshelf:null};
     this.bookshelfs.addLibrary(auxBookshelf).subscribe((resp:any)=>{this.alertMessage=resp.message; this.reiniciarAtributos();});
   }
 

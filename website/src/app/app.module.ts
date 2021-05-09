@@ -17,6 +17,7 @@ import { BookCreateComponent } from './components/book-create/book-create.compon
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AppRoutingModule } from './app-routing.module';
     BookComponent,
     BookCalendarComponent,
     LibraryCreateComponent,
-    BookCreateComponent
+    BookCreateComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

@@ -18,7 +18,7 @@ async function getMultiple(req,page = 1){
   }
 }
 
-async function create(bookshelf){
+async function create(bookshelf, userId){
   const result = await db.query(
     `INSERT INTO Bookshelf
     (name, columnB, rowB, User_idUser) 
@@ -26,7 +26,7 @@ async function create(bookshelf){
     (?, ?, ?, ?)`, 
     [
       bookshelf.name, bookshelf.columnB,
-      bookshelf.rowB, bookshelf.User_idUser
+      bookshelf.rowB, userId
     ]
   );
 
@@ -43,7 +43,7 @@ async function update(id, bookshelf){
   const result = await db.query(
     `UPDATE Bookshelf 
     SET rowB=?, columnB=?, name=? 
-    WHERE id=?`, 
+    WHERE idBookshelf=?`, 
     [
       bookshelf.rowB, bookshelf.columnB,
       bookshelf.name, id

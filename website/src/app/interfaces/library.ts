@@ -3,6 +3,6 @@ export interface Library {
     rowB: number,
     columnB: number,
     name: Text,
-    User_idUser: number
+    User_idUser: number|null
 }
 

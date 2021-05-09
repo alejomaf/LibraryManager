@@ -31,7 +31,7 @@ router.post('/login', async function (req, res, next) {
     } else {
       res.json({
         successfull: createToken(user),
-        done: "Login correct"+user.idUser
+        done: "Login correct"
       });
     }
   }

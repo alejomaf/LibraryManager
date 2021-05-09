@@ -18,7 +18,7 @@ router.get('/', async function(req, res, next) {
 
 router.post('/', async function(req, res, next) {
   try {
-    res.json(await bookshelfs.create(req.body));
+    res.json(await bookshelfs.create(req.body, req.userId));
   } catch (err) {
     console.error(`Error while creating bookshelf`, err.message);
     next(err);

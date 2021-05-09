@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Library} from "../interfaces/library";
+import { UserService } from "../services/user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class BookshelfsService {
   _url = "bookshelfs"
-  public bookshelf:{idBookshelf:"",rowB:"", columnB:"", name:"", User_idUser:"" }
-
-  constructor(private http : HttpClient) { }
+  
+  constructor(private http : HttpClient, private userService: UserService) { }
 
   getLibraries(){
-    let header = new HttpHeaders().set("Type-content", "aplication/json")
+    let header = new HttpHeaders(({'Content-Type': 'application/json',"user_token":this.userService.getToken()}));
     return this.http.get(this._url, { headers : header});
   }
 
   addLibrary(data:Library){
-    return this.http.post(this._url, data);
+    let header = new HttpHeaders(({'Content-Type': 'application/json',"user_token":this.userService.getToken()}));
+    return this.http.post(this._url, data, { headers : header});
   }
 }
