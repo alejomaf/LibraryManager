@@ -16,11 +16,10 @@ export class LibraryCreateComponent implements OnInit {
   rowNumber = new FormControl('');
   columnNumber = new FormControl('');
   alertMessage = "";
-  public librerias: Array<any> = []
+  
 
   constructor(private modalService: NgbModal, private bookshelfs: BookshelfsService) {
-    this.bookshelfs.getLibraries().subscribe((resp: any)=>{console.log(resp);
-    this.librerias = resp});
+    
   }
 
   ngOnInit(): void {

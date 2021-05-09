@@ -2,12 +2,12 @@ const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
 
-async function getMultiple(page = 1){
+async function getMultiple(idBookshelf, page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT idBook, title, author, pages, Bookshelf_idBookshelfs, toRead, stars 
-    FROM Book LIMIT ?,?`, 
-    [offset, config.listPerPage]
+    `SELECT idBook, title, author, pages, Bookshelf_idBookshelf, toRead, stars 
+    FROM Book WHERE Bookshelf_idBookshelf = ? LIMIT ?,?`, 
+    [idBookshelf, offset, config.listPerPage]
   );
   const data = helper.emptyOrRows(rows);
   const meta = {page};

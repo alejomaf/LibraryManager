@@ -4,9 +4,15 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from "./components/login/login.component"
 import { RegisterComponent } from './components/register/register.component';
 import { LoginGuard } from "./guards/login.guard"
+import { LibraryComponent } from "./components/library/library.component";
+import { BookComponent } from './components/book/book.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, canActivate: [LoginGuard] },
+  { path: '', component: DashboardComponent, canActivate: [LoginGuard],
+  children:[
+  { path: '', component: LibraryComponent, canActivate: [LoginGuard]},
+  { path: 'library/:id', component: BookComponent, canActivate: [LoginGuard]}
+  ]},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent}
 ];

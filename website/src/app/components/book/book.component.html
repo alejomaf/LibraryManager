@@ -1,11 +1,13 @@
-<div class="card text-white bg-dark m-5" style="width: 18rem;">
+<app-book-create></app-book-create>
+<div class="d-flex flex-row">
+<div *ngFor="let book of books" class="card text-white bg-dark m-5" style="width: 18rem;">
     <div class="card-body">
-        <h5 class="card-title">El origen de las especies</h5>
+        <h5 class="card-title">{{book.title}}</h5>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item bg-dark">Autor: Charles Darwin</li>
-        <li class="list-group-item bg-dark">Páginas: 350</li>
-        <li class="list-group-item bg-dark">No leído</li>
+        <li class="list-group-item bg-dark">Autor: {{book.author}}</li>
+        <li class="list-group-item bg-dark">Páginas: {{book.pages}}</li>
+        <li class="list-group-item bg-dark">{{"book.toRead==0 ? 'No leído' : 'Leido'" }}</li>
         <div class="d-flex justify-content-center">
             <fa-icon class="fa-2x" [icon]="faStar"></fa-icon>
             <fa-icon class="fa-2x" [icon]="faStar"></fa-icon>
@@ -24,4 +26,5 @@
             <button href="#" type="button" class="btn btn-light">Planificar lectura</button>
         </div>
     </div>
+</div>
 </div>
