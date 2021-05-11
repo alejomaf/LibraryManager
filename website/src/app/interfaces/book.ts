@@ -1,5 +1,5 @@
 export interface Book {
-    idBook: number | null,
+    idBook?: number | null ,
     title: Text,
     author: Text,
     pages: number,

@@ -8,7 +8,8 @@ router.use(middleware.checkToken);
 /* GET reminders. */
 router.get('/', async function(req, res, next) {
   try {
-    res.json(await reminders.getMultiple(req.query.page));
+    req.User_idUser = req.userId;
+    res.json(await reminders.getMultiple(req, req.query.page));
   } catch (err) {
     console.error(`Error while getting reminders `, err.message);
     next(err);

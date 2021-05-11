@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BookCalendarComponent } from './book-calendar.component';
+import { ReminderCreateComponent } from './reminder-create.component';
 
-describe('BookCalendarComponent', () => {
-  let component: BookCalendarComponent;
-  let fixture: ComponentFixture<BookCalendarComponent>;
+describe('ReminderCreateComponent', () => {
+  let component: ReminderCreateComponent;
+  let fixture: ComponentFixture<ReminderCreateComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ BookCalendarComponent ]
+      declarations: [ ReminderCreateComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BookCalendarComponent);
+    fixture = TestBed.createComponent(ReminderCreateComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

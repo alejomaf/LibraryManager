@@ -2,12 +2,13 @@ const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
 
-async function getMultiple(page = 1){
+async function getMultiple(req, page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT idReminder, date, completed, User_idUser, Book_idBook 
-    FROM Reminder LIMIT ?,?`, 
-    [offset, config.listPerPage]
+    `SELECT Reminder.date, Book.title, Reminder.Book_idBook, Bookshelf.name, Reminder.idReminder 
+    FROM Reminder INNER JOIN Book ON Reminder.Book_idBook = Book.idBook INNER JOIN Bookshelf ON 
+    Book.Bookshelf_idBookshelf=Bookshelf.idBookshelf WHERE Reminder.completed=0 AND Reminder.User_idUser= ? ORDER BY Reminder.date LIMIT ?,?`, 
+    [req.userId, offset, config.listPerPage]
   );
   const data = helper.emptyOrRows(rows);
   const meta = {page};

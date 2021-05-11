@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import {Book} from "../interfaces/book";
 import { UserService } from "../services/user.service";
+import { Reminder } from '../interfaces/reminder';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BooksService {
-  _url = "books"
+export class RemindersService {
+  _url = "reminders"
   
   constructor(private http : HttpClient, private userService: UserService) { }
 
-  getBooks(idLibrary){
-    let param = new HttpParams().set("idBookshelf", idLibrary)
+  getReminders(){
     let header = new HttpHeaders(({'Content-Type': 'application/json',"user_token":this.userService.getToken()}));
-    return this.http.get(this._url, { headers : header, params : param});
+    return this.http.get(this._url, { headers : header});
   }
 
-  addBook(data:Book){
+  addReminder(data:Reminder){
     let header = new HttpHeaders(({'Content-Type': 'application/json',"user_token":this.userService.getToken()}));
     return this.http.post(this._url, data, { headers : header});
   }
+
 }

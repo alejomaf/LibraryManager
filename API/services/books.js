@@ -21,13 +21,13 @@ async function getMultiple(idBookshelf, page = 1){
 async function create(book){
   const result = await db.query(
     `INSERT INTO Book
-    (title, author, pages, Bookshelf_idBookshelfs, toRead, stars) 
+    (title, author, pages, Bookshelf_idBookshelf, toRead, stars) 
     VALUES 
-    (?, ?, ?, ?)`, 
+    (?, ?, ?, ?, ?, ?)`, 
     [
       book.title, book.author,
-      book.pages, book.Bookshelf_idBookshelfs,
-      toRead, stars
+      book.pages, book.Bookshelf_idBookshelf,
+      book.toRead, book.stars
     ]
   );
 

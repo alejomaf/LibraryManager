@@ -11,13 +11,14 @@ import { LibraryComponent } from './components/library/library.component';
 import { BookComponent } from './components/book/book.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { BookCalendarComponent } from './components/book-calendar/book-calendar.component';
 import { LibraryCreateComponent } from './components/library-create/library-create.component';
 import { BookCreateComponent } from './components/book-create/book-create.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { ReminderComponent } from './components/reminder/reminder.component';
+import { ReminderCreateComponent } from './components/reminder-create/reminder-create.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +28,11 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     NavbarComponent,
     LibraryComponent,
     BookComponent,
-    BookCalendarComponent,
     LibraryCreateComponent,
     BookCreateComponent,
-    DashboardComponent
+    DashboardComponent,
+    ReminderComponent,
+    ReminderCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,6 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
-  exports: [BookCalendarComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
