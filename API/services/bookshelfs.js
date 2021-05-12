@@ -61,7 +61,7 @@ async function update(id, bookshelf){
 
 async function remove(id){
   const result = await db.query(
-    `DELETE FROM Bookshelf WHERE id=?`, 
+    `DELETE FROM Bookshelf WHERE idBookshelf=?`, 
     [id]
   );
 

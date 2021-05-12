@@ -33,17 +33,20 @@ export class LoginComponent implements OnInit {
     }
     let user: User = {email:this.email.value, password: this.password.value, idUser:null, name:null, user_token:"Auth_Key"}
     
-    let header = new HttpHeaders(({'Content-Type': 'application/json',"user_token":"Auth_Key"}));
     let login = this.loginService.login(user).subscribe((resp:any)=>{
+      if(resp.error=="Error, email or password not found") {
+        this.loginFail();
+        return false;
+      }
       this.userService.setToken(resp.successfull);
+      this.router.navigateByUrl("");
       return true;
     });
-    if(login){
-      this.router.navigateByUrl("");
-    }else{
-      this.alertMessage = "Contraseña o usuario incorrectos"+login;
-      this.email = new FormControl("");
-      this.password = new FormControl("");
-    }
+  }
+
+  loginFail(){
+    this.alertMessage = "Contraseña o usuario incorrectos";
+    this.email = new FormControl("");
+    this.password = new FormControl("");
   }
 }

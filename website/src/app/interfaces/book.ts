@@ -5,5 +5,6 @@ export interface Book {
     pages: number,
     Bookshelf_idBookshelf: number | null,
     toRead: number,
-    stars: number
+    stars: number,
+    photo?: Text
 }

@@ -18,7 +18,7 @@ router.get('/', async function(req, res, next) {
 
 router.post('/', async function(req, res, next) {
   try {
-    res.json(await reminders.create(req.body));
+    res.json(await reminders.create(req.userId, req.body));
   } catch (err) {
     console.error(`Error while creating reminder`, err.message);
     next(err);

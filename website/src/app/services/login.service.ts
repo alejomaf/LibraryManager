@@ -15,4 +15,5 @@ export class LoginService {
     let header = new HttpHeaders(({'Content-Type': 'application/json',"user_token":"Auth_Key"}));
     return this.http.post(this._url, data, {headers:header});
   }
+
 }

@@ -7,6 +7,31 @@ const moment = require("moment");
 const middleware = require('./middleware');
 
 
+
+
+router.post('/login', async function (req, res, next) {
+  const user = await users.getByEmail(req.body.email);
+  if (user === undefined) {
+    res.json({
+      error: "Error, email or password not found"
+    });
+  } else {
+    if(!bcrypt.compareSync(req.body.password, user.password)){
+      res.json({
+        error: "Error, email or password not found"
+      });
+    }else{
+      res.json({
+        successfull: createToken(user),
+        done: "Login correct"
+      });
+    }
+  }
+  res.json({
+    error: "Error, email or password not found"
+  });
+});
+
 const createToken = (user) => {
   let payload = {
     userId: user.idUser,
@@ -16,30 +41,9 @@ const createToken = (user) => {
   return jwt.encode(payload,process.env.TOKEN_KEY);
 };
 
-router.post('/login', async function (req, res, next) {
-  const user = await users.getByEmail(req.body.email)
-  if (user === undefined) {
-    res.json({
-      error: "Error, email or password not found"
-    });
-  } else {
-    const equals = bcrypt.compare(req.body.password, user.password);
-    if (!equals) {
-      res.json({
-        error: "Error, email or password not found"
-      });
-    } else {
-      res.json({
-        successfull: createToken(user),
-        done: "Login correct"
-      });
-    }
-  }
-});
-
 router.post('/', async function (req, res, next) {
   try {
-    req.body.password = bcrypt.hashSync("req.body.password", 10);
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
     res.json(await users.create(req.body));
   } catch (err) {
     console.error(`Error while creating user`, err.message);
@@ -75,6 +79,7 @@ router.get("/mainUser", (req, res) => {
 
 router.put('/:id', async function (req, res, next) {
   try {
+    req.body.password = bcrypt.hashSync(req.body.password, 10);
     res.json(await users.update(req.params.id, req.body));
   } catch (err) {
     console.error(`Error while updating user`, err.message);

@@ -70,7 +70,7 @@ async function update(id, user){
   const result = await db.query(
     `UPDATE User 
     SET name=?, password=?, email=? 
-    WHERE id=?`, 
+    WHERE idUser=?`, 
     [
       user.name, user.password,
       user.email, id
@@ -88,7 +88,7 @@ async function update(id, user){
 
 async function remove(id){
   const result = await db.query(
-    `DELETE FROM User WHERE id=?`, 
+    `DELETE FROM User WHERE idUser=?`, 
     [id]
   );
 

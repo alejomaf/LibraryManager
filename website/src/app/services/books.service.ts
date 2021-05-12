@@ -21,4 +21,14 @@ export class BooksService {
     let header = new HttpHeaders(({'Content-Type': 'application/json',"user_token":this.userService.getToken()}));
     return this.http.post(this._url, data, { headers : header});
   }
+
+  deleteBook(idBook){
+    let header = new HttpHeaders(({'Content-Type': 'application/json',"user_token":this.userService.getToken()}));
+    return this.http.delete(this._url+"/"+idBook,{ headers : header});
+  }
+
+  updateBook(idBook,data){
+    let header = new HttpHeaders(({'Content-Type': 'application/json',"user_token":this.userService.getToken()}));
+    return this.http.put(this._url+"/"+idBook,data,{ headers : header});
+  }
 }

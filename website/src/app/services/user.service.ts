@@ -19,5 +19,9 @@ export class UserService {
     return localStorage.getItem(user_token);
   }
 
+  resetToken(){
+    localStorage.removeItem(user_token);
+  }
+
   constructor() { }
 }

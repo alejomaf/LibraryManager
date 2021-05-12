@@ -5,7 +5,7 @@ const config = require('../config');
 async function getMultiple(idBookshelf, page = 1){
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
-    `SELECT idBook, title, author, pages, Bookshelf_idBookshelf, toRead, stars 
+    `SELECT idBook, title, author, pages, Bookshelf_idBookshelf, toRead, stars, photo 
     FROM Book WHERE Bookshelf_idBookshelf = ? LIMIT ?,?`, 
     [idBookshelf, offset, config.listPerPage]
   );
@@ -21,13 +21,13 @@ async function getMultiple(idBookshelf, page = 1){
 async function create(book){
   const result = await db.query(
     `INSERT INTO Book
-    (title, author, pages, Bookshelf_idBookshelf, toRead, stars) 
+    (title, author, pages, Bookshelf_idBookshelf, toRead, stars, photo) 
     VALUES 
-    (?, ?, ?, ?, ?, ?)`, 
+    (?, ?, ?, ?, ?, ?, ?)`, 
     [
       book.title, book.author,
       book.pages, book.Bookshelf_idBookshelf,
-      book.toRead, book.stars
+      book.toRead, book.stars, book.photo
     ]
   );
 
@@ -43,12 +43,12 @@ async function create(book){
 async function update(id, book){
   const result = await db.query(
     `UPDATE Book 
-    SET title=?, author=?, pages=?, Bookshelf_idBookshelfs=?, toRead=?, stars=? 
-    WHERE id=?`, 
+    SET title=?, author=?, pages=?, Bookshelf_idBookshelf=?, toRead=?, stars=?, photo=? 
+    WHERE idBook=?`, 
     [
       book.title, book.author,
-      book.pages, book.Bookshelf_idBookshelfs,
-      book.toRead, book.stars, id
+      book.pages, book.Bookshelf_idBookshelf,
+      book.toRead, book.stars, book.photo, id
     ]
   );
 
@@ -63,7 +63,7 @@ async function update(id, book){
 
 async function remove(id){
   const result = await db.query(
-    `DELETE FROM Book WHERE id=?`, 
+    `DELETE FROM Book WHERE idBook=?`, 
     [id]
   );
 

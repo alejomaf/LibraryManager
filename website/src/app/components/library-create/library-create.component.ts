@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { BookshelfsService } from '../../services/bookshelfs.service';
@@ -17,6 +17,7 @@ export class LibraryCreateComponent implements OnInit {
   columnNumber = new FormControl('');
   alertMessage = "";
   
+  @Output() refresh: EventEmitter<string> = new EventEmitter();
 
   constructor(private modalService: NgbModal, private bookshelfs: BookshelfsService) {
     
@@ -40,6 +41,7 @@ export class LibraryCreateComponent implements OnInit {
     }
     let auxBookshelf: Library = {columnB:this.columnNumber.value, name: this.libraryName.value, rowB: this.rowNumber.value, User_idUser:null, idBookshelf:null};
     this.bookshelfs.addLibrary(auxBookshelf).subscribe((resp:any)=>{this.alertMessage=resp.message; this.reiniciarAtributos();});
+    this.refresh.emit();
   }
 
   reiniciarAtributos(){

@@ -19,15 +19,15 @@ async function getMultiple(req, page = 1){
   }
 }
 
-async function create(reminder){
+async function create(userId, reminder){
   const result = await db.query(
     `INSERT INTO Reminder
     (date, completed, User_idUser, Book_idBook) 
     VALUES 
-    (?, ?, ?, ?)`, 
+    (FROM_UNIXTIME(?), ?, ?, ?)`, 
     [
       reminder.date, reminder.completed,
-      reminder.User_idUser, reminder.Book_idBook
+      userId, reminder.Book_idBook
     ]
   );
 
@@ -44,7 +44,7 @@ async function update(id, reminder){
   const result = await db.query(
     `UPDATE Reminder 
     SET date=?, completed=?, User_idUser=?, Book_idBook=?
-    WHERE id=?`, 
+    WHERE idReminder=?`, 
     [
       reminder.date, reminder.completed,
       reminder.User_idUser, reminder.Book_idBook, id
@@ -62,7 +62,7 @@ async function update(id, reminder){
 
 async function remove(id){
   const result = await db.query(
-    `DELETE FROM Reminder WHERE id=?`, 
+    `DELETE FROM Reminder WHERE idReminder=?`, 
     [id]
   );
 
