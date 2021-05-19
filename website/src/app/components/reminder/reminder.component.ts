@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Reminder } from 'src/app/interfaces/reminder';
 import { ReminderPerUser } from 'src/app/interfaces/reminder-per-user';
 import { BooksService } from 'src/app/services/books.service';
 import { RemindersService } from 'src/app/services/reminders.service';
@@ -19,15 +20,18 @@ export class ReminderComponent implements OnInit {
     });
   }
 
-  deleteReminder(){
-
+  deleteReminder(reminder: Reminder){
+    this.remindersS.deleteReminder(reminder).subscribe((resp:any)=> {console.log(resp)});
   }
 
-  markAsRead(idBook, book){
-    book.toRead=1;
-    if(confirm("Are you sure to read the book: "+book.title+"?")) {
-      this.booksS.updateBook(idBook,book).subscribe((resp: any) => {
+  markAsRead(reminder: ReminderPerUser){
+    let reminderAux: Reminder = {completed:1, idReminder:reminder.idReminder, Book_idBook: reminder.Book_idBook}
+    if(confirm("Are you sure to read the book: "+reminder.title+"?")) {
+      this.remindersS.updateReminder(reminderAux).subscribe((resp: any) => {
         console.log(resp);
+        this.reminders.forEach((reminderAux,index)=>{
+          if(reminderAux.idReminder==reminder.idReminder) this.reminders.splice(index,1);
+        });
       });
     }
   }

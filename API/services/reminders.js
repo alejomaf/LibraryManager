@@ -43,11 +43,18 @@ async function create(userId, reminder){
 async function update(id, reminder){
   const result = await db.query(
     `UPDATE Reminder 
-    SET date=?, completed=?, User_idUser=?, Book_idBook=?
-    WHERE idReminder=?`, 
+    SET completed=?
+    WHERE idReminder=?`,
     [
-      reminder.date, reminder.completed,
-      reminder.User_idUser, reminder.Book_idBook, id
+      reminder.completed, id
+    ]
+  );
+  const result2 = await db.query(
+    `UPDATE Book 
+    SET toRead=1
+    WHERE idBook=?`,
+    [
+      reminder.Book_idBook
     ]
   );
 

@@ -37,9 +37,8 @@ export class LibraryComponent implements OnInit {
       this.bookshelfs.deleteLibrary(idLibrary).subscribe((resp: any) => {
         console.log(resp);
       });
-      this.bookshelfs.getLibraries().subscribe((resp: any) => {
-        console.log(resp);
-        this.libraries = resp.data
+      this.libraries.forEach((libraryAux,index)=>{
+        if(libraryAux.idBookshelf==idLibrary) this.libraries.splice(index,1);
       });
     }
   }

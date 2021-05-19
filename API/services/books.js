@@ -2,15 +2,15 @@ const db = require('./db');
 const helper = require('../helper');
 const config = require('../config');
 
-async function getMultiple(idBookshelf, page = 1){
+async function getMultiple(idBookshelf, page = 1) {
   const offset = helper.getOffset(page, config.listPerPage);
   const rows = await db.query(
     `SELECT idBook, title, author, pages, Bookshelf_idBookshelf, toRead, stars, photo 
-    FROM Book WHERE Bookshelf_idBookshelf = ? LIMIT ?,?`, 
+    FROM Book WHERE Bookshelf_idBookshelf = ? LIMIT ?,?`,
     [idBookshelf, offset, config.listPerPage]
   );
   const data = helper.emptyOrRows(rows);
-  const meta = {page};
+  const meta = { page };
 
   return {
     data,
@@ -18,12 +18,12 @@ async function getMultiple(idBookshelf, page = 1){
   }
 }
 
-async function create(book){
+async function create(book) {
   const result = await db.query(
     `INSERT INTO Book
     (title, author, pages, Bookshelf_idBookshelf, toRead, stars, photo) 
     VALUES 
-    (?, ?, ?, ?, ?, ?, ?)`, 
+    (?, ?, ?, ?, ?, ?, ?)`,
     [
       book.title, book.author,
       book.pages, book.Bookshelf_idBookshelf,
@@ -37,20 +37,29 @@ async function create(book){
     message = 'Book created successfully';
   }
 
-  return {message};
+  return { message };
 }
 
-async function update(id, book){
-  const result = await db.query(
-    `UPDATE Book 
-    SET title=?, author=?, pages=?, Bookshelf_idBookshelf=?, toRead=?, stars=?, photo=? 
-    WHERE idBook=?`, 
-    [
-      book.title, book.author,
-      book.pages, book.Bookshelf_idBookshelf,
-      book.toRead, book.stars, book.photo, id
-    ]
-  );
+async function update(id, book) {
+  if (book.stars == "") {
+    const result = await db.query(
+      `UPDATE Book 
+    SET toRead=?
+    WHERE idBook=?`,
+      [
+        book.toRead, book.stars, id
+      ]
+    );
+  } else {
+    const result = await db.query(
+      `UPDATE Book 
+    SET stars=?
+    WHERE idBook=?`,
+      [
+        book.stars, id
+      ]
+    );
+  }
 
   let message = 'Error in updating book';
 
@@ -58,12 +67,12 @@ async function update(id, book){
     message = 'Book updated successfully';
   }
 
-  return {message};
+  return { message };
 }
 
-async function remove(id){
+async function remove(id) {
   const result = await db.query(
-    `DELETE FROM Book WHERE idBook=?`, 
+    `DELETE FROM Book WHERE idBook=?`,
     [id]
   );
 
@@ -73,7 +82,7 @@ async function remove(id){
     message = 'Book deleted successfully';
   }
 
-  return {message};
+  return { message };
 }
 
 

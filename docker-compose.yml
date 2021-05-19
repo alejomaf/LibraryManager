@@ -1,0 +1,60 @@
+version: "3.1"
+services:
+    www:
+        container_name: client
+        build: website
+        volumes:
+            - ./website:/app
+        ports: 
+            - 4200:4200
+        links:
+            - db
+        networks:
+            - default
+        command: npm run dev
+    db:
+        build: design
+        container_name: db
+        ports: 
+            - 3306:3306
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+            MYSQL_DATABASE: freedbtech_LibraryManager
+            MYSQL_USER: user
+            MYSQL_PASSWORD: test
+            MYSQL_ROOT_PASSWORD: test 
+        volumes:
+            - ./design:/docker-entrypoint-initdb.d
+            - persistent:/var/lib/mysql
+        networks:
+            - default
+        restart: always
+    api:
+        depends_on:
+            - db
+        container_name: api
+        build: API
+        volumes:
+            - ./API:/app 
+        command: npm run dev
+        links: 
+            - db:db
+        ports:
+            - 3000:3000
+        stdin_open: true
+        tty: true
+        networks: 
+            - default
+    phpmyadmin:
+        container_name: libraryphpadm
+        image: phpmyadmin
+        links: 
+            - db:db
+        ports:
+            - 8000:80
+        environment:
+            MYSQL_USER: user
+            MYSQL_PASSWORD: test
+            MYSQL_ROOT_PASSWORD: test 
+volumes:
+    persistent:
