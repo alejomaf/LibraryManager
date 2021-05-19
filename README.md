@@ -7,14 +7,16 @@ This project has been created with Angular, Node, Express, and MySQL. It has an 
 ### Books view
 ![Screenshot](design/web-views/books_view.png)
 
-### Libraries view
-![Screenshot](design/web-views/libraries_view.png)
-
 ### Login view
 ![Screenshot](design/web-views/login_view.png)
+
+### Register view
+![Screenshot](design/web-views/register_view.png)
+
+### Libraries view
+![Screenshot](design/web-views/libraries_view.png)
 
 ### To read reminders
 ![Screenshot](design/web-views/read_reminder_view.png)
 
-### Register view
-![Screenshot](design/web-views/register_view.png)
+
